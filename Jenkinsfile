@@ -9,11 +9,11 @@ pipeline {
 
   stages {
 
-    stage('Checkout Source') {
-      steps {
-        git 'https://github.com/laplace-ro/test-deployment'
-      }
-    }
+    // stage('Checkout Source') {
+    //   steps {
+    //     git 'https://github.com/laplace-ro/test-deployment'
+    //   }
+    // }
 
     stage('Build image') {
       steps{
