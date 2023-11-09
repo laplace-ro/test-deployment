@@ -73,26 +73,13 @@ pipeline {
     stage('Pushing Image') {
       environment {
         registryCredential = 'dockerhub-credentials'
-        dockerHubUser = credentials('dockerHub').username
-        dockerHubPassword = credentials('dockerHub').password
+        dockerHubUser = "${credentials('dockerHub').username}"
+        dockerHubPassword = "${credentials('dockerHub').password}"
       }
       steps {
         script {
           docker.withRegistry('https://registry.hub.docker.com', registryCredential) {
             dockerImage.push("latest")
-          }
-        }
-      }
-      post {
-        success {
-          stage('Docker Push') {
-            agent any
-            steps {
-              withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
-                sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
-                sh 'docker push bravinwasike/react-app:latest'
-              }
-            }
           }
         }
       }
@@ -106,5 +93,18 @@ pipeline {
       }
     }
   }
-}
 
+  post {
+    success {
+      stage('Docker Push') {
+        agent any
+        steps {
+          withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+            sh "docker login -u ${dockerHubUser} -p ${dockerHubPassword}"
+            sh 'docker push bravinwasike/react-app:latest'
+          }
+        }
+      }
+    }
+  }
+}
