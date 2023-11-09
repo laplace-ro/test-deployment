@@ -96,9 +96,10 @@ pipeline {
 
   post {
     success {
-      stage('Docker Push') {
-        agent any
-        steps {
+      script {
+        if (currentBuild.resultIsBetterOrEqualTo("SUCCESS")) {
+          
+          echo 'Running Docker Push'
           withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
             sh "docker login -u ${dockerHubUser} -p ${dockerHubPassword}"
             sh 'docker push bravinwasike/react-app:latest'
