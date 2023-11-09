@@ -57,8 +57,19 @@ pipeline {
   agent any
 
   stages {
-    // ... (restul codului rămâne neschimbat)
+    stage('Checkout Source') {
+      steps {
+        git 'https://github.com/laplace-ro/test-deployment'
+      }
+    }
 
+    stage('Build image') {
+      steps{
+        script {
+          dockerImage = docker.build dockerimagename
+        }
+      }
+    }
     stage('Pushing Image') {
       steps {
         script {
@@ -71,7 +82,6 @@ pipeline {
       }
     }
 
-    // ... (restul codului rămâne neschimbat)
   }
 
   post {
