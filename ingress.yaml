@@ -3,10 +3,9 @@ kind: Ingress
 metadata:
   name: minimal-ingress
 spec:
-  ingressClassName: nginx-example
   rules:
   - host: test-dev.lpc.ro
-  - http:
+    http:
       paths:
       - path: /
         pathType: Prefix
