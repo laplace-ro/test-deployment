@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: react-app #The name of the react.js application container
-        image: boxboat/hello-world-webapp:latest #The Docker image for building the React.js application container
+        image: boxboat/hello-world-webapp #The Docker image for building the React.js application container
         ports:
         - containerPort: 8080 #The port for the React.js application   container
 
