@@ -5,8 +5,8 @@ metadata:
 spec:
   selector:
     app: react-app 
-  type: LoadBalancer #Type of the Kubernetes Service
+  type: LoadBalancer 
   ports:
   - protocol: TCP
-    port: 8080 #Service port
-    targetPort: 8080 #The port for the React.js application container
+    port: 8080 
+    targetPort: 80 
