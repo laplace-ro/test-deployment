@@ -16,7 +16,7 @@ kind: Service
 metadata:
   name: service
 spec:
-  type: NodePort
+  type: ClusterIP
   ports:
     - name: "8080"
       port: 8080
